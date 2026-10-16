@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MindVerse</title>
+<meta name="description" content="MindVerse – online counselling with Karunya Mudidana, Counselling Psychologist & Behavioural Therapist. Understand. Heal. Grow.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Montserrat:wght@400;500;600&family=Poppins:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: one calm scroll on warm ivory, sage-tinted cards, deep forest-green accents and a navy wordmark (follows the MindVerse poster). */
+:root {
+  --bg: #F7F4EC;
+  --band: #EEEDE2;
+  --card: #FBFAF5;
+  --ink: #1F2A24;
+  --muted: #56605A;
+  --navy: #1E2F5C;
+  --green: #2F5E3D;
+  --green-deep: #24492F;
+  --sage: #8FA886;
+  --sage-soft: #E2E7D6;
+  --line: #DCDccf;
+  --on-green: #FFFFFF;
+  --shadow: 0 18px 40px -24px rgba(36, 73, 47, .35);
+  --serif: "Cormorant Garamond", "Cormorant", Georgia, "Times New Roman", serif;
+  --brand: "Montserrat", "Segoe UI", system-ui, sans-serif;
+  --sans: "Poppins", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --radius: 26px;
+  --wrap: 1180px;
+}
+/* Always light, matching the MindVerse poster */
+:root, :root[data-theme="dark"] { color-scheme: light; }
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--sans); font-size: 16px; line-height: 1.7;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--bg); }
+h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.15; margin: 0; text-wrap: balance; color: var(--ink); }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; border-radius: 8px; }
+
+.wrap {
+  max-width: var(--wrap); margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+@media (min-width: 720px) { .wrap { padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-right: max(32px, env(safe-area-inset-right, 0px)); } }
+
+.eyebrow { font-family: var(--brand); color: var(--green); font-size: 12.5px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; }
+.accent { color: var(--green); font-style: italic; font-weight: 500; text-transform: none; }
+
+/* Heading with heart divider, like the poster */
+.title { display: grid; gap: 10px; justify-items: center; text-align: center; }
+.title h2 { font-size: clamp(32px, 4.6vw, 48px); text-transform: uppercase; letter-spacing: .02em; color: var(--green-deep); }
+.divider { display: flex; align-items: center; gap: 10px; color: var(--green); }
+.divider::before, .divider::after { content: ""; width: 54px; border-top: 1px solid var(--sage); }
+.divider svg { width: 14px; height: 14px; }
+.section { padding-block: 92px; }
+.section-head { max-width: 680px; margin: 0 auto 52px; display: grid; gap: 14px; justify-items: center; text-align: center; }
+.section-head > p { color: var(--muted); font-size: 17.5px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 15px 32px; border-radius: 999px; font: 500 15.5px/1 var(--sans);
+  text-decoration: none; cursor: pointer; border: 1.5px solid var(--green-deep);
+  transition: transform .2s ease, background .2s ease;
+}
+.btn-primary { background: var(--green-deep); color: var(--on-green); box-shadow: var(--shadow); }
+.btn-primary:hover { background: var(--green); border-color: var(--green); transform: translateY(-2px); }
+.btn-ghost { background: transparent; color: var(--green); border-color: var(--green); }
+.btn-ghost:hover { background: var(--sage-soft); }
+
+/* Icon in sage circle */
+.icon { width: 64px; height: 64px; border-radius: 50%; background: var(--sage-soft); display: grid; place-items: center; color: var(--green); flex: none; }
+.icon svg { width: 30px; height: 30px; }
+
+/* Header */
+.site-header {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(10px); border-bottom: 1px solid var(--line);
+}
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 14px; position: relative; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.brand > svg { width: 48px; height: 48px; flex: none; }
+.wordmark { font-family: var(--brand); font-weight: 500; font-size: 22px; letter-spacing: .14em; line-height: 1; }
+.wordmark .m { color: var(--navy); }
+.wordmark .v { color: var(--green); }
+.brand-sub { display: block; font-family: var(--brand); font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--navy); margin-top: 7px; }
+.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; margin: 0; padding: 0; }
+.nav-links a { text-decoration: none; color: var(--muted); font-size: 15px; transition: color .2s; }
+.nav-links a:hover { color: var(--green); }
+.nav-links .btn { color: var(--on-green); padding: 12px 24px; }
+.menu-btn { display: none; background: none; border: 1px solid var(--line); border-radius: 12px; width: 46px; height: 46px; cursor: pointer; color: var(--ink); }
+.menu-btn svg { width: 22px; height: 22px; }
+@media (max-width: 1060px) {
+  .menu-btn { display: inline-grid; place-items: center; }
+  .nav-links {
+    position: absolute; left: 0; right: 0; top: 100%;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--bg); border-bottom: 1px solid var(--line);
+    padding: 8px max(16px, env(safe-area-inset-right, 0px)) 20px max(16px, env(safe-area-inset-left, 0px));
+    display: none;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links li a { display: block; padding: 12px 4px; font-size: 17px; }
+  .nav-links .btn { margin-top: 10px; text-align: center; display: flex; }
+}
+@media (max-width: 420px) { .wordmark { font-size: 19px; } .brand > svg { width: 42px; height: 42px; } }
+
+/* Leaf decorations */
+.vine { position: absolute; pointer-events: none; color: var(--sage); opacity: .9; }
+
+/* Hero */
+.hero { position: relative; padding-block: 64px 84px; overflow: hidden; }
+.hero .vine-tl { top: -10px; left: -30px; width: 280px; transform: rotate(-8deg); }
+.hero .vine-br { bottom: 0; right: -40px; width: 300px; transform: rotate(172deg); }
+.hero-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; position: relative; }
+.hero-copy { display: grid; gap: 22px; justify-items: start; min-width: 0; }
+.hero h1 { font-size: clamp(46px, 6.4vw, 80px); text-transform: uppercase; color: var(--green-deep); font-weight: 700; letter-spacing: .01em; line-height: 1.02; }
+.hero h1 .accent { display: block; font-size: .72em; margin-top: 6px; letter-spacing: 0; }
+.hero-lead { font-size: 18.5px; color: var(--muted); max-width: 32em; }
+.hero-lead strong { color: var(--ink); font-weight: 500; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 10px 22px; color: var(--muted); font-size: 14px; }
+.hero-meta span { display: inline-flex; align-items: center; gap: 8px; }
+.hero-meta svg { width: 18px; height: 18px; color: var(--green); }
+
+.hero-brand { display: grid; justify-items: center; text-align: center; gap: 16px; min-width: 0; }
+.hero-brand .big-logo { width: min(210px, 52vw); height: auto; }
+.hero-brand .wordmark { font-size: clamp(38px, 6vw, 62px); letter-spacing: .16em; }
+.tagline { font-family: var(--brand); font-size: clamp(13px, 1.6vw, 17px); letter-spacing: .3em; color: var(--navy); text-transform: uppercase; }
+.subline { font-family: var(--brand); font-size: 12px; letter-spacing: .26em; color: var(--navy); text-transform: uppercase; opacity: .85; padding-top: 14px; border-top: 1px solid var(--sage); }
+.hero-tag { display: inline-flex; gap: 10px; align-items: baseline; background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 10px 22px; font-size: 14px; color: var(--muted); box-shadow: var(--shadow); }
+.hero-tag strong { font-family: var(--serif); font-size: 22px; color: var(--green-deep); }
+@media (max-width: 880px) {
+  .hero { padding-block: 40px 64px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  .hero-brand { order: -1; }
+  .hero .vine-tl { width: 180px; }
+}
+
+/* Welcome / what is */
+.panel { position: relative; overflow: hidden; background: var(--band); border-radius: 32px; padding: clamp(48px, 8vw, 88px) clamp(20px, 6vw, 80px); text-align: center; display: grid; gap: 24px; justify-items: center; }
+.panel .vine-l { left: -20px; bottom: -6px; width: 220px; transform: rotate(10deg); }
+.panel .vine-r { right: -20px; top: -6px; width: 220px; transform: rotate(190deg); }
+.panel blockquote { margin: 0; max-width: 44em; font-size: 19px; color: var(--muted); position: relative; }
+.panel cite { font-family: var(--serif); font-style: normal; font-size: 22px; color: var(--ink); font-weight: 600; }
+.link-arrow { color: var(--green); font-weight: 600; text-decoration: none; display: inline-flex; gap: 8px; align-items: center; transition: gap .2s; }
+.link-arrow:hover { gap: 12px; }
+
+/* About */
+.about-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; align-items: start; }
+.about-card { background: var(--card); border-radius: var(--radius); padding: 40px; border: 1px solid var(--line); display: grid; gap: 16px; justify-items: start; }
+.portrait {
+  width: 150px; aspect-ratio: 1; max-width: 100%; border-radius: 50%;
+  background: var(--sage-soft); border: 6px solid var(--band);
+  display: grid; place-items: center; text-align: center;
+}
+.portrait span { font-family: var(--serif); font-size: 56px; color: var(--green); line-height: 1; font-weight: 600; }
+.about-card h3 { font-size: 32px; }
+.about-card .role { color: var(--green); font-weight: 500; font-size: 15px; }
+.about-card p { color: var(--muted); }
+.about-text { display: grid; gap: 20px; min-width: 0; }
+.about-text .title { justify-items: start; text-align: left; }
+.about-text .title h2 { text-align: left; }
+.about-text .divider::before { display: none; }
+.about-text p { color: var(--muted); font-size: 17px; }
+@media (max-width: 860px) { .about-grid { grid-template-columns: 1fr; gap: 32px; } }
+
+/* Services grid */
+.services { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--card); border: 1px solid var(--line); border-radius: 32px; overflow: hidden; }
+.svc { padding: 36px 28px; display: grid; gap: 12px; justify-items: center; text-align: center; align-content: start; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.svc:nth-child(3n) { border-right: 0; }
+.svc:nth-last-child(-n+3) { border-bottom: 0; }
+.svc h3 { font-family: var(--brand); font-size: 14.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; line-height: 1.4; }
+.svc p { color: var(--muted); font-size: 14.5px; max-width: 24em; }
+.more-head { text-align: center; margin: 48px 0 20px; font-family: var(--serif); font-size: 26px; color: var(--ink); }
+.pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; max-width: 980px; margin: 0 auto; list-style: none; padding: 0; }
+.pills li { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 10px 22px; font-size: 15px; }
+@media (max-width: 900px) {
+  .services { grid-template-columns: repeat(2, 1fr); }
+  .svc { border-right: 1px solid var(--line) !important; border-bottom: 1px solid var(--line) !important; }
+  .svc:nth-child(2n) { border-right: 0 !important; }
+  .svc:nth-last-child(-n+2) { border-bottom: 0 !important; }
+}
+@media (max-width: 540px) {
+  .services { grid-template-columns: 1fr; }
+  .svc { border-right: 0 !important; border-bottom: 1px solid var(--line) !important; }
+  .svc:last-child { border-bottom: 0 !important; }
+}
+
+/* Why choose */
+.why { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.why-item { display: flex; gap: 20px; align-items: flex-start; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; min-width: 0; }
+.why-item h3 { font-family: var(--brand); font-size: 15px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 6px; }
+.why-item p { color: var(--muted); font-size: 15px; }
+@media (max-width: 760px) { .why { grid-template-columns: 1fr; } }
+
+/* Approach */
+.approach { background: var(--band); border-radius: 32px; padding: clamp(40px, 6vw, 72px) clamp(20px, 5vw, 64px); display: grid; grid-template-columns: 1fr 2.2fr; gap: 40px; align-items: center; }
+.approach-intro { display: grid; gap: 16px; min-width: 0; }
+.approach-intro .title { justify-items: start; text-align: left; }
+.approach-intro .divider::before { display: none; }
+.approach-intro p { color: var(--muted); font-size: 16.5px; }
+.approach-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; list-style: none; margin: 0; padding: 0; }
+.approach-steps li { display: grid; gap: 12px; justify-items: center; text-align: center; font-size: 15px; font-weight: 500; }
+.approach-steps .icon { width: 84px; height: 84px; background: var(--card); border: 1px solid var(--line); }
+.approach-steps .icon svg { width: 38px; height: 38px; }
+@media (max-width: 960px) { .approach { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .approach-steps { grid-template-columns: repeat(2, 1fr); row-gap: 28px; } }
+
+/* Session details */
+.details { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.detail { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px 26px; display: grid; gap: 10px; align-content: start; }
+.detail .label { font-family: var(--brand); font-size: 11.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--green); font-weight: 600; }
+.detail .value { font-family: var(--serif); font-size: 32px; line-height: 1.15; font-weight: 600; }
+.detail p { color: var(--muted); font-size: 14.5px; }
+.hours { display: grid; gap: 4px; font-size: 15px; }
+.hours div { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.hours span:last-child { color: var(--muted); font-variant-numeric: tabular-nums; }
+@media (max-width: 1020px) { .details { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .details { grid-template-columns: 1fr; } }
+
+/* Booking steps */
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; list-style: none; padding: 0; margin: 0; counter-reset: step; position: relative; }
+.steps li { display: grid; gap: 12px; justify-items: center; text-align: center; padding: 0 8px; }
+.steps li::before {
+  counter-increment: step; content: counter(step);
+  width: 62px; height: 62px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--green-deep); color: var(--on-green);
+  font-family: var(--serif); font-size: 28px; font-weight: 600; position: relative; z-index: 1;
+}
+.steps::before { content: ""; position: absolute; top: 31px; left: 12.5%; right: 12.5%; border-top: 1.5px dashed var(--sage); }
+.steps h3 { font-size: 24px; }
+.steps p { color: var(--muted); font-size: 15px; max-width: 22em; }
+@media (max-width: 860px) { .steps { grid-template-columns: 1fr 1fr; row-gap: 40px; } .steps::before { display: none; } }
+@media (max-width: 480px) { .steps { grid-template-columns: 1fr; } }
+.pay { margin-top: 52px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; color: var(--muted); font-size: 15px; }
+.pay strong { color: var(--ink); font-weight: 500; }
+.chip { border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 6px 16px; font-size: 14px; color: var(--ink); }
+
+/* Policies */
+.policies { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.policy { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 36px; display: flex; gap: 20px; align-items: flex-start; min-width: 0; }
+.policy h3 { font-size: 28px; margin-bottom: 8px; }
+.policy p { color: var(--muted); font-size: 15.5px; }
+@media (max-width: 760px) { .policies { grid-template-columns: 1fr; } .policy { padding: 28px 22px; } }
+
+/* Booking */
+.book-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 48px; align-items: start; }
+.book-info { display: grid; gap: 20px; min-width: 0; }
+.book-info .title { justify-items: start; text-align: left; }
+.book-info .divider::before { display: none; }
+.book-info > p { color: var(--muted); font-size: 17px; }
+.contact-list { display: grid; gap: 12px; list-style: none; padding: 0; margin: 6px 0 0; }
+.contact-item { display: flex; align-items: center; gap: 14px; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 12px 14px; min-width: 0; }
+.contact-item .icon { width: 44px; height: 44px; }
+.contact-item .icon svg { width: 20px; height: 20px; }
+.contact-item .val { flex: 1; min-width: 0; overflow-wrap: anywhere; font-weight: 500; }
+.contact-item .val small { display: block; font-weight: 400; color: var(--muted); font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; }
+.copy { border: 1px solid var(--line); background: var(--bg); color: var(--muted); border-radius: 10px; padding: 6px 12px; font: 500 13px var(--sans); cursor: pointer; flex: none; }
+.copy:hover { color: var(--green); border-color: var(--green); }
+form.booking { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(24px, 4vw, 40px); display: grid; gap: 18px; box-shadow: var(--shadow); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field label { font-size: 14px; font-weight: 500; }
+.field input, .field select, .field textarea { width: 100%; font: 400 15px var(--sans); color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+.field textarea { min-height: 96px; resize: vertical; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid var(--green); outline-offset: 0; border-color: transparent; }
+.form-note { font-size: 13px; color: var(--muted); }
+.form-status { font-size: 14px; color: var(--green); min-height: 1.4em; }
+@media (max-width: 900px) { .book-grid { grid-template-columns: 1fr; } }
+
+/* Quote cards + CTA */
+.quotes { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+.quote { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 32px; display: flex; gap: 18px; align-items: center; min-width: 0; }
+.quote p { font-family: var(--serif); font-size: 24px; line-height: 1.35; font-weight: 500; }
+.quote small { display: block; margin-top: 8px; font-family: var(--brand); font-size: 12px; letter-spacing: .24em; text-transform: uppercase; color: var(--green); }
+@media (max-width: 760px) { .quotes { grid-template-columns: 1fr; } }
+.cta {
+  position: relative; overflow: hidden;
+  border-radius: 32px; padding: clamp(56px, 8vw, 96px) clamp(20px, 6vw, 64px); text-align: center;
+  background: linear-gradient(120deg, #3A6E49, #24492F); display: grid; gap: 20px; justify-items: center; box-shadow: var(--shadow);
+}
+.cta h2 { color: #fff; font-size: clamp(38px, 5.6vw, 60px); }
+.cta p { font-size: 18px; max-width: 34em; color: #E6EEDF; }
+.cta .btn { background: #fff; color: #24492F; border-color: #fff; }
+.cta .btn:hover { transform: translateY(-2px); }
+.cta .vine { color: #9DBB92; opacity: .45; }
+.cta .vine-l { left: -30px; bottom: -10px; width: 260px; transform: rotate(8deg); }
+.cta .vine-r { right: -30px; top: -10px; width: 260px; transform: rotate(188deg); }
+
+/* Footer */
+footer { margin-top: 92px; border-top: 1px solid var(--line); background: var(--band); }
+.foot { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.3fr; gap: 40px; padding-block: 60px 40px; }
+.foot > div > p { color: var(--muted); max-width: 26em; margin-top: 18px; }
+.foot h4 { font-family: var(--brand); font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--green); font-weight: 600; margin: 0 0 18px; }
+.foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.foot a { text-decoration: none; }
+.foot a:hover { color: var(--green); }
+.foot .ci { display: flex; gap: 12px; align-items: center; overflow-wrap: anywhere; min-width: 0; }
+.foot .ci svg { width: 20px; height: 20px; color: var(--green); flex: none; }
+.strip { background: var(--green-deep); color: #E6EEDF; text-align: center; font-family: var(--brand); font-size: 12.5px; letter-spacing: .24em; text-transform: uppercase; padding-block: 16px; }
+.copyright { padding-block: 20px 26px; color: var(--muted); font-size: 14px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; border-top: 1px solid var(--line); }
+@media (max-width: 900px) { .foot { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .foot { grid-template-columns: 1fr; } }
+
+.anchor { scroll-margin-top: 90px; }
+</style>
+</head>
+<body>
+<!-- Shared symbols -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Brain + tree logo -->
+    <symbol id="logo" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="46" fill="none" stroke="#1E2F5C" stroke-width="3"/>
+      <!-- brain (left) -->
+      <g fill="none" stroke="#1E2F5C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M49 22 C40 18 30 21 28 29 C21 31 18 39 22 45 C17 50 19 59 26 61 C26 69 34 73 41 70 C44 73 48 72 49 70"/>
+        <path d="M30 35 C35 34 38 37 38 41"/>
+        <path d="M25 50 C30 48 35 51 35 55"/>
+        <path d="M40 27 C38 31 40 34 44 34"/>
+        <path d="M33 63 C36 60 41 60 43 63"/>
+        <path d="M42 46 C45 44 47 46 49 46"/>
+      </g>
+      <!-- trunk -->
+      <path d="M50 88 V30 M50 58 C55 52 60 50 66 50 M50 46 C55 40 60 38 65 37 M50 70 C56 66 62 66 68 67" fill="none" stroke="#2F5E3D" stroke-width="2.8" stroke-linecap="round"/>
+      <!-- leaves (right) -->
+      <g fill="#4E8A5C">
+        <ellipse cx="56" cy="26" rx="5" ry="8" transform="rotate(30 56 26)"/>
+        <ellipse cx="66" cy="31" rx="5" ry="8" transform="rotate(60 66 31)"/>
+        <ellipse cx="71" cy="44" rx="5" ry="8" transform="rotate(80 71 44)"/>
+        <ellipse cx="62" cy="43" rx="4" ry="7" transform="rotate(40 62 43)"/>
+        <ellipse cx="72" cy="57" rx="5" ry="8" transform="rotate(100 72 57)"/>
+        <ellipse cx="62" cy="58" rx="4" ry="7" transform="rotate(60 62 58)"/>
+        <ellipse cx="73" cy="71" rx="4.5" ry="7.5" transform="rotate(115 73 71)"/>
+        <ellipse cx="58" cy="35" rx="3.5" ry="6" transform="rotate(20 58 35)"/>
+      </g>
+      <path d="M38 88 Q50 82 62 88" fill="none" stroke="#2F5E3D" stroke-width="2.4" stroke-linecap="round"/>
+    </symbol>
+    <!-- Leafy vine -->
+    <symbol id="vine" viewBox="0 0 300 120">
+      <path d="M4 110 C70 80 140 40 296 14" fill="none" stroke="currentColor" stroke-width="2"/>
+      <g fill="currentColor">
+        <ellipse cx="40" cy="86" rx="6" ry="13" transform="rotate(-40 40 86)"/>
+        <ellipse cx="52" cy="100" rx="6" ry="13" transform="rotate(60 52 100)"/>
+        <ellipse cx="85" cy="64" rx="6" ry="13" transform="rotate(-45 85 64)"/>
+        <ellipse cx="98" cy="80" rx="6" ry="13" transform="rotate(55 98 80)"/>
+        <ellipse cx="130" cy="44" rx="6" ry="13" transform="rotate(-50 130 44)"/>
+        <ellipse cx="145" cy="60" rx="6" ry="13" transform="rotate(50 145 60)"/>
+        <ellipse cx="178" cy="29" rx="5.5" ry="12" transform="rotate(-55 178 29)"/>
+        <ellipse cx="193" cy="44" rx="5.5" ry="12" transform="rotate(45 193 44)"/>
+        <ellipse cx="226" cy="19" rx="5" ry="11" transform="rotate(-60 226 19)"/>
+        <ellipse cx="240" cy="32" rx="5" ry="11" transform="rotate(40 240 32)"/>
+        <ellipse cx="276" cy="16" rx="4.5" ry="10" transform="rotate(70 276 16)"/>
+      </g>
+    </symbol>
+    <symbol id="heart" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11z"/></symbol>
+  </defs>
+</svg>
+
+<header class="site-header">
+  <nav class="wrap nav" aria-label="Main">
+    <a class="brand" href="#top" aria-label="MindVerse home">
+      <svg><use href="#logo"/></svg>
+      <span>
+        <span class="wordmark"><span class="m">MIND</span><span class="v">VERSE</span></span>
+        <span class="brand-sub">Understand · Heal · Grow</span>
+      </span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#approach">Approach</a></li>
+      <li><a href="#sessions">Sessions &amp; Fees</a></li>
+      <li><a href="#process">Booking</a></li>
+      <li><a href="#policies">Policies</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a class="btn btn-primary" href="#book">Book a Session</a></li>
+    </ul>
+    <button class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </nav>
+</header>
+
+<main id="top">
+  <!-- Hero -->
+  <section class="hero">
+    <svg class="vine vine-tl" viewBox="0 0 300 120" aria-hidden="true"><use href="#vine"/></svg>
+    <svg class="vine vine-br" viewBox="0 0 300 120" aria-hidden="true"><use href="#vine"/></svg>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Counselling Psychologist · Behavioural Therapist</span>
+        <h1>A safe space <span class="accent">for every mind.</span></h1>
+        <span class="divider" aria-hidden="true" style="justify-self:start"><svg><use href="#heart"/></svg></span>
+        <p class="hero-lead">At MindVerse, I believe every mind matters and every story deserves to be heard. <strong>You don't have to face it all alone. I'm here to walk with you.</strong></p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#book">Book a Session</a>
+          <a class="btn btn-ghost" href="#about">About Karunya</a>
+        </div>
+        <div class="hero-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/></svg>Online video sessions</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>45 minutes</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Strictly confidential</span>
+        </div>
+      </div>
+      <div class="hero-brand">
+        <svg class="big-logo" viewBox="0 0 100 100" role="img" aria-label="MindVerse logo"><use href="#logo"/></svg>
+        <div class="wordmark"><span class="m">MIND</span><span class="v">VERSE</span></div>
+        <div class="tagline">Understand • Heal • Grow</div>
+        <div class="subline">Psychology • Counselling • Wellness</div>
+        <div class="hero-tag"><strong>₹700 – ₹1700</strong>per 45-min session</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What is MindVerse -->
+  <section class="wrap">
+    <div class="panel">
+      <svg class="vine vine-l" viewBox="0 0 300 120" aria-hidden="true"><use href="#vine"/></svg>
+      <svg class="vine vine-r" viewBox="0 0 300 120" aria-hidden="true"><use href="#vine"/></svg>
+      <div class="title"><h2>What is MindVerse?</h2><span class="divider" aria-hidden="true"><svg><use href="#heart"/></svg></span></div>
+      <blockquote>MindVerse is a safe space for understanding minds, healing emotions, and growing into your best self. It's a confidential and compassionate online counselling platform for emotional, behavioural, and psychological challenges.</blockquote>
+      <cite>— Karunya Mudidana, founder</cite>
+      <a class="link-arrow" href="#about">Meet Karunya <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section anchor" id="about">
+    <div class="wrap about-grid">
+      <div class="about-card">
+        <div class="portrait" role="img" aria-label="Photo of Karunya Mudidana (placeholder)"><span>KM</span></div>
+        <span class="eyebrow">About the founder</span>
+        <h3>Karunya Mudidana</h3>
+        <span class="role">Counselling Psychologist | Behavioural Therapist</span>
+        <p>Karunya promotes mental well-being through evidence-based, client-centred care. She believes every individual deserves a safe, non-judgmental space to express their emotions, overcome challenges, and build resilience.</p>
+      </div>
+      <div class="about-text">
+        <div class="title"><h2>About MindVerse</h2><span class="divider" aria-hidden="true"><svg><use href="#heart"/></svg></span></div>
+        <p>MindVerse supports individuals through emotional, behavioural, and psychological challenges, all in a safe, confidential online setting.</p>
+        <p>Our goal is to help you understand yourself better, develop healthy coping skills, improve your emotional well-being, and lead a balanced and meaningful life.</p>
+        <p>Karunya's approach focuses on understanding each person's unique experiences and empowering them with practical strategies to improve their mental health and overall quality of life.</p>
+        <div><a class="btn btn-primary" href="#book">Book a Session</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="anchor" id="services" style="padding-bottom:92px">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="title"><h2>Services I Provide</h2><span class="divider" aria-hidden="true"><svg><use href="#heart"/></svg></span></div>
+      </div>
+      <div class="services">
+        <article class="svc">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>
+          <h3>Individual Counselling</h3><p>One-on-one support for your unique challenges.</p>
+        </article>
+        <article class="svc">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.1A8.5 8.5 0 1 1 21 12z"/><path d="M12 15.5s-3.5-2-3.5-4.5a1.9 1.9 0 0 1 3.5-1 1.9 1.9 0 0 1 3.5 1c0 2.5-3.5 4.5-3.5 4.5z"/></svg></span>
+          <h3>Emotional Support</h3><p>A safe space to express, reflect and heal, including help with emotional regulation and depression.</p>
+        </article>
+        <article class="svc">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20c-4 0-8-2.5-8-7 2.5 0 5 1 8 4 3-3 5.5-4 8-4 0 4.5-4 7-8 7z"/><path d="M12 17c-2-2-2.5-6 0-10 2.5 4 2 8 0 10z"/></svg></span>
+          <h3>Stress &amp; Anxiety Management</h3><p>Tools and strategies to manage stress, worry, anxiety and anger.</p>
+        </article>
+        <article class="svc">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="8" r="4"/><path d="M3 21a7 7 0 0 1 12-5"/><path d="M18 3l.9 1.9 2.1.3-1.5 1.5.4 2.1-1.9-1-1.9 1 .4-2.1-1.5-1.5 2.1-.3z"/></svg></span>
+          <h3>Self-Esteem &amp; Confidence</h3><p>Building self-worth and a positive self-image.</p>
+        </article>
+        <article class="svc">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3.5"/><circle cx="16.5" cy="8" r="3.5"/><path d="M2 20a6 6 0 0 1 12 0M10.5 20a6 6 0 0 1 11.5 0"/></svg></span>
+          <h3>Relationship Support</h3><p>Improving communication and understanding in relationships and with others.</p>
+        </article>
+        <article class="svc">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V10"/><path d="M12 13c-4 0-6-3-6-6 4 0 6 3 6 6zM12 11c0-4 2.5-7 6.5-7 0 4-2.5 7-6.5 7z"/><path d="M8 21h8"/></svg></span>
+          <h3>Personal Growth</h3><p>Goal setting, personal development and support through life transitions.</p>
+        </article>
+      </div>
+
+      <p class="more-head">Also supporting</p>
+      <ul class="pills">
+        <li>Adult Mental Health Counselling</li>
+        <li>Child &amp; Adolescent Behavioural Support</li>
+        <li>Behaviour Therapy</li>
+        <li>Depression Support</li>
+        <li>Emotional Regulation</li>
+        <li>Anger Management</li>
+        <li>Academic &amp; Career Stress</li>
+        <li>Parenting Guidance</li>
+        <li>Psychoeducation &amp; Emotional Wellness</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Why choose -->
+  <section class="wrap" style="padding-bottom:92px">
+    <div class="section-head">
+      <div class="title"><h2>Why Choose MindVerse?</h2><span class="divider" aria-hidden="true"><svg><use href="#heart"/></svg></span></div>
+    </div>
+    <div class="why">
+      <div class="why-item">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+        <div><h3>Compassionate &amp; Non-Judgmental</h3><p>A safe, accepting space where you can be yourself.</p></div>
+      </div>
+      <div class="why-item">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>
+        <div><h3>Expert Guidance</h3><p>Professional, evidence-based support tailored to your needs.</p></div>
+      </div>
+      <div class="why-item">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+        <div><h3>Confidential &amp; Safe</h3><p>Your privacy and comfort are my top priority.</p></div>
+      </div>
+      <div class="why-item">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V11"/><path d="M12 14c-3.5 0-5.5-2.5-5.5-5.5 3.5 0 5.5 2.5 5.5 5.5zM12 12c0-3.5 2-6 5.5-6 0 3.5-2 6-5.5 6z"/></svg></span>
+        <div><h3>Focused on Growth</h3><p>Empowering you to heal, grow and create a meaningful life.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Approach -->
+  <section class="wrap anchor" id="approach">
+    <div class="approach">
+      <div class="approach-intro">
+        <div class="title"><h2>My Approach</h2><span class="divider" aria-hidden="true"><svg><use href="#heart"/></svg></span></div>
+        <p>I combine empathy, evidence-based techniques and practical tools. Every session is personalized to your concerns, goals and pace, so you feel heard, understood and empowered to make positive changes.</p>
+      </div>
+      <ul class="approach-steps">
+        <li><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 21v-3h2a2 2 0 0 0 2-2v-3l2-1-2-3a7 7 0 1 0-12 5v7"/><circle cx="12" cy="9" r="2.2"/></svg></span>Understand yourself</li>
+        <li><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12s-3.5-2-3.5-4.5a1.9 1.9 0 0 1 3.5-1 1.9 1.9 0 0 1 3.5 1C15.5 10 12 12 12 12z"/><path d="M3 14l3 6h4l2-2 2 2h4l3-6"/><path d="M6 20c0-3 2-5 6-5s6 2 6 5"/></svg></span>Heal from the past</li>
+        <li><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M12 8v5M6 11l6 2 6-2M5 20c2-3 4.5-4 7-4s5 1 7 4"/><path d="M8 20h8"/></svg></span>Build resilience &amp; balance</li>
+        <li><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V10"/><path d="M12 13c-4 0-6-3-6-6 4 0 6 3 6 6zM12 11c0-4 2.5-7 6.5-7 0 4-2.5 7-6.5 7z"/><path d="M7 21h10"/></svg></span>Grow into your best self</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Sessions & fees -->
+  <section class="section anchor" id="sessions">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="title"><h2>Sessions &amp; Fees</h2><span class="divider" aria-hidden="true"><svg><use href="#heart"/></svg></span></div>
+        <p>Simple, transparent details before you book.</p>
+      </div>
+      <div class="details">
+        <div class="detail"><span class="label">Consultation fee</span><span class="value">₹700 – ₹1700</span><p>Per session. The fee may vary with the type and duration of the consultation.</p></div>
+        <div class="detail"><span class="label">Session duration</span><span class="value">45 minutes</span><p>Focused, unhurried time for each session.</p></div>
+        <div class="detail"><span class="label">Mode</span><span class="value">Online only</span><p>Secure video sessions that protect your privacy and confidentiality.</p></div>
+        <div class="detail">
+          <span class="label">Timings</span>
+          <div class="hours">
+            <div><span>Mon – Sat</span><span>7:00 – 10:00 PM</span></div>
+            <div><span>Sunday</span><span>10:00 AM – 1:00 PM</span></div>
+          </div>
+          <p>By prior appointment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="anchor" id="process" style="padding-bottom:92px">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="title"><h2>How Booking Works</h2><span class="divider" aria-hidden="true"><svg><use href="#heart"/></svg></span></div>
+        <p>Four simple steps from first message to your first session.</p>
+      </div>
+      <ol class="steps">
+        <li><h3>Schedule</h3><p>Choose a time that suits you and request an appointment.</p></li>
+        <li><h3>Intake Form</h3><p>Complete a short intake form so we can understand your needs.</p></li>
+        <li><h3>Payment</h3><p>Pay the consultation fee. Payment details are shared after confirmation.</p></li>
+        <li><h3>Join Online</h3><p>Receive your secure meeting link and attend the session.</p></li>
+      </ol>
+      <div class="pay">
+        <strong>We accept</strong>
+        <span class="chip">UPI</span><span class="chip">Google Pay</span><span class="chip">PhonePe</span><span class="chip">Bank Transfer</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Policies -->
+  <section class="wrap anchor" id="policies">
+    <div class="policies">
+      <article class="policy">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+        <div><h3>Confidentiality</h3><p>Everything you share in counselling is kept strictly confidential and handled according to professional ethical guidelines. Your privacy is our highest priority.</p></div>
+      </article>
+      <article class="policy">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
+        <div><h3>Cancellation Policy</h3><p>You can reschedule or cancel with at least 24 hours' notice. Missed sessions, or cancellations with shorter notice, may be charged the full consultation fee.</p></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Booking / contact -->
+  <section class="section anchor" id="book">
+    <div class="wrap book-grid">
+      <div class="book-info anchor" id="contact">
+        <div class="title"><h2>Let's Connect</h2><span class="divider" aria-hidden="true"><svg><use href="#heart"/></svg></span></div>
+        <p>Fill in the form to send your appointment request on WhatsApp, or contact us directly. We'll confirm your slot and share the intake form and payment details.</p>
+        <ul class="contact-list">
+          <li class="contact-item">
+            <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span>
+            <span class="val"><small>Phone / WhatsApp</small>+91 96408 46113</span>
+            <button class="copy" type="button" data-copy="+919640846113">Copy</button>
+          </li>
+          <li class="contact-item">
+            <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+            <span class="val"><small>Email</small>mindverse181@gmail.com</span>
+            <button class="copy" type="button" data-copy="mindverse181@gmail.com">Copy</button>
+          </li>
+          <li class="contact-item">
+            <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+            <span class="val"><small>Location</small>Online sessions available</span>
+          </li>
+        </ul>
+      </div>
+
+      <form class="booking" id="booking" novalidate>
+        <div class="form-row">
+          <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" autocomplete="name" required placeholder="Full name"></div>
+          <div class="field"><label for="f-phone">Phone number</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" required placeholder="+91"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="f-date">Preferred date</label><input id="f-date" name="date" type="date" required></div>
+          <div class="field">
+            <label for="f-slot">Preferred time</label>
+            <select id="f-slot" name="slot" required disabled>
+              <option value="">Select a date first</option>
+            </select>
+          </div>
+        </div>
+        <p class="form-note" id="slot-note">Mon – Sat: 7:00 PM to 10:00 PM · Sunday: 10:00 AM to 1:00 PM · 45-minute sessions</p>
+        <div class="form-row">
+          <div class="field" style="grid-column:1/-1">
+            <label for="f-service">Area of concern</label>
+            <select id="f-service" name="service">
+              <option>Not sure yet</option>
+              <option>Individual Counselling</option>
+              <option>Adult Mental Health Counselling</option>
+              <option>Child &amp; Adolescent Behavioural Support</option>
+              <option>Behaviour Therapy</option>
+              <option>Stress Management</option>
+              <option>Anxiety Management</option>
+              <option>Depression Support</option>
+              <option>Emotional Regulation</option>
+              <option>Anger Management</option>
+              <option>Self-esteem &amp; Confidence Building</option>
+              <option>Relationship &amp; Interpersonal Concerns</option>
+              <option>Academic &amp; Career Stress Counselling</option>
+              <option>Parenting Guidance</option>
+              <option>Goal Setting &amp; Personal Growth</option>
+              <option>Psychoeducation &amp; Emotional Wellness</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label for="f-msg">Anything you'd like to share? (optional)</label><textarea id="f-msg" name="message" placeholder="A few words about what you'd like support with."></textarea></div>
+        <p class="form-note">Your details are only used to arrange your appointment and are kept confidential.</p>
+        <div><button class="btn btn-primary" type="submit">Send request on WhatsApp</button></div>
+        <p class="form-status" id="form-status" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Quotes + CTA -->
+  <section class="wrap">
+    <div class="quotes">
+      <div class="quote">
+        <span class="icon"><svg viewBox="0 0 24 24"><use href="#heart"/></svg></span>
+        <p>Healing is not a destination, it's a journey. Let's take the first step together.<small>Understand. Heal. Grow.</small></p>
+      </div>
+      <div class="quote">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 7H6a2 2 0 0 0-2 2v4h4v4l3-4V9a2 2 0 0 0-1-2zm10 0h-4a2 2 0 0 0-2 2v4h4v4l3-4V9a2 2 0 0 0-1-2z"/></svg></span>
+        <p>Every mind has a story. Every story matters.</p>
+      </div>
+    </div>
+    <div class="cta">
+      <svg class="vine vine-l" viewBox="0 0 300 120" aria-hidden="true"><use href="#vine"/></svg>
+      <svg class="vine vine-r" viewBox="0 0 300 120" aria-hidden="true"><use href="#vine"/></svg>
+      <h2>Take the first step</h2>
+      <p>You don't have to face it all alone. Book your online session today and let's walk this journey together.</p>
+      <a class="btn" href="#book">Book Your Session</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <a class="brand" href="#top">
+        <svg><use href="#logo"/></svg>
+        <span><span class="wordmark"><span class="m">MIND</span><span class="v">VERSE</span></span><span class="brand-sub">Understand · Heal · Grow</span></span>
+      </a>
+      <p>A safe, confidential, and compassionate online counselling space with Karunya Mudidana, Counselling Psychologist &amp; Behavioural Therapist.</p>
+    </div>
+    <div>
+      <h4>Sitemap</h4>
+      <ul>
+        <li><a href="#about">About Karunya</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#approach">My Approach</a></li>
+        <li><a href="#process">Booking Process</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#sessions">Sessions &amp; Fees</a></li>
+        <li><a href="#policies">Confidentiality</a></li>
+        <li><a href="#policies">Cancellation Policy</a></li>
+        <li><a href="#book">Book a Session</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Get in touch</h4>
+      <ul>
+        <li class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span>+91 96408 46113</span></li>
+        <li class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>mindverse181@gmail.com</span></li>
+        <li class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/></svg><span>Online sessions only</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="strip">Because every mind has a story, and every story matters</div>
+  <div class="wrap">
+    <div class="copyright">
+      <span>© 2026 MindVerse. All rights reserved.</span>
+      <span>If you are in crisis, please contact local emergency services right away.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var btn = document.getElementById('menu-btn');
+  var links = document.getElementById('nav-links');
+  btn.addEventListener('click', function () {
+    var open = links.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.addEventListener('click', function (e) {
+    if (e.target.closest('a')) { links.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+  });
+
+  document.querySelectorAll('.copy').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var text = b.getAttribute('data-copy');
+      var reset = function () { setTimeout(function () { b.textContent = 'Copy'; }, 1600); };
+      var fallback = function () {
+        var val = b.parentElement.querySelector('.val');
+        var r = document.createRange(); r.selectNodeContents(val);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        b.textContent = 'Selected'; reset();
+      };
+      try { navigator.clipboard.writeText(text).then(function () { b.textContent = 'Copied'; reset(); }, fallback); } catch (e) { fallback(); }
+    });
+  });
+
+  var form = document.getElementById('booking');
+  var status = document.getElementById('form-status');
+
+  // Session start times (45-minute sessions inside consultation hours)
+  var WEEKDAY_SLOTS = [[19, '7:00 PM'], [20, '8:00 PM'], [21, '9:00 PM']];   // Mon – Sat, 7–10 PM
+  var SUNDAY_SLOTS = [[10, '10:00 AM'], [11, '11:00 AM'], [12, '12:00 PM']]; // Sunday, 10 AM – 1 PM
+
+  var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+  var toISO = function (d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); };
+  var parseISO = function (s) { var p = s.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); };
+  var today = new Date();
+  form.date.min = toISO(today);
+  var max = new Date(today); max.setDate(max.getDate() + 60);
+  form.date.max = toISO(max);
+
+  function fillSlots() {
+    var sel = form.slot;
+    sel.innerHTML = '';
+    if (!form.date.value) {
+      sel.add(new Option('Select a date first', ''));
+      sel.disabled = true;
+      return;
+    }
+    var d = parseISO(form.date.value);
+    var slots = d.getDay() === 0 ? SUNDAY_SLOTS : WEEKDAY_SLOTS;
+    var now = new Date();
+    var isToday = toISO(d) === toISO(now);
+    var open = slots.filter(function (s) { return !isToday || s[0] > now.getHours(); });
+    if (!open.length) {
+      sel.add(new Option('No times left today, please pick another date', ''));
+      sel.disabled = true;
+      return;
+    }
+    sel.add(new Option('Select a time', ''));
+    open.forEach(function (s) { sel.add(new Option(s[1], s[1])); });
+    sel.disabled = false;
+  }
+  form.date.addEventListener('change', fillSlots);
+  fillSlots();
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = form.name.value.trim();
+    var phone = form.phone.value.trim();
+    var missing = !name ? form.name : !phone ? form.phone : !form.date.value ? form.date : !form.slot.value ? form.slot : null;
+    if (missing) {
+      status.textContent = 'Please add your name, phone number, date and time so we can confirm your slot.';
+      missing.focus();
+      return;
+    }
+    var when = parseISO(form.date.value).toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    var lines = [
+      'Hello MindVerse, I would like to book a session.',
+      'Name: ' + name,
+      'Phone: ' + phone,
+      'Date: ' + when,
+      'Time: ' + form.slot.value,
+      'Area of concern: ' + form.service.value
+    ];
+    if (form.message.value.trim()) lines.push('Note: ' + form.message.value.trim());
+    var url = 'https://wa.me/919640846113?text=' + encodeURIComponent(lines.join('\n'));
+    status.innerHTML = '';
+    var a = document.createElement('a');
+    a.href = url; a.target = '_blank'; a.rel = 'noopener'; a.className = 'link-arrow';
+    a.textContent = 'Open WhatsApp to send your request →';
+    status.appendChild(a);
+    a.focus();
+  });
+})();
+</script>
+</body>
+</html>
